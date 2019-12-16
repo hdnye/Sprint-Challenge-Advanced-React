@@ -20,18 +20,12 @@ class PlayerData extends React.Component {
         .catch(err => console.log(err));
     };
 
-    handleChanges = event => {
-        this.setState({
-            players: event.target.value
-        });
-    };
-
-
+  
 render() {
     return (
         <div className='playerData'>
           {this.state.players.map(player => (
-              <div>
+              <div key={player.id}>
                   <h1>{player.name}</h1>
                   <p>{player.country}</p>
                   <p>{player.searches}</p>
