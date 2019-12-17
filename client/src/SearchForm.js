@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Button } from 'reactstrap';
 import axios from 'axios';
 import localStorage from './localStorage';
@@ -9,7 +9,7 @@ import localStorage from './localStorage';
 //         super(props);
 //           this.state = {
 //               name: ''
-//          };
+//          };const  searchPlayers = 
 //     }
 
 export default function SearchForm(props) {
@@ -19,8 +19,8 @@ export default function SearchForm(props) {
    useEffect(() => {
     axios.get('http://localhost:5000/api/players')
     .then(res => {
-      const  searchPlayers = res.data.filter(players => players.name.toLowerCase().includes(search.toLocaleLowerCase()) );     
-      setSearch(searchPlayers);
+      res.data.filter(players => players.name.toLowerCase().includes());     
+      setSearch(search);
  });
  },[search]);
 
@@ -37,7 +37,7 @@ export default function SearchForm(props) {
 
        return (
            <div className='searchForm'>
-              <form onSubmit={searchPlayers}>
+              <form onSubmit={search}>
                   <label htmlFor='search'></label><br></br>
                       <input 
                            type='text'
