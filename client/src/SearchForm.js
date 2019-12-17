@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'reactstrap';
 import axios from 'axios';
+import localStorage from './localStorage';
 
 
 // class SearchForm extends React.Component {
@@ -12,7 +13,7 @@ import axios from 'axios';
 //     }
 
 export default function SearchForm(props) {
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = localStorage('');
 
    
    useEffect(() => {
