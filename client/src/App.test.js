@@ -14,5 +14,10 @@ test('renders without crashing', () => {
 
 test('Players are listed', () => {
   const players = rtl.render(<App />);
-  expect(players()).getByText(/players/i);
-})
+  expect(players).getByText(/players/i);
+});
+
+test('Search Form working', () => {
+  const { getByTestId } = rtl.render(<App />);
+  getByTestId(/searchForm/i);
+});

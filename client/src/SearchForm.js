@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import {Container, Row, Col, Button } from 'reactstrap';
-import LocalStorage from './LocalStorage';
+import React, { useState, useEffect } from 'react';
+import { Button } from 'reactstrap';
+import axios from 'axios';
 
 
 // class SearchForm extends React.Component {
@@ -12,14 +12,19 @@ import LocalStorage from './LocalStorage';
 //     }
 
 export default function SearchForm(props) {
-    const [search, setSearch] = LocalStorage(false);
+    const [search, setSearch] = useState('');
 
-       
-    const  searchPlayers = () => {
-        props.data.filter(players => players.name.toLowerCase().includes(search));     
-    }
-  
+   
+   useEffect(() => {
+    axios.get('http://localhost:5000/api/players')
+    .then(res => {
+      const  searchPlayers = res.data.filter(players => players.name.toLowerCase().includes(search.toLocaleLowerCase()) );     
+      setSearch(searchPlayers);
+ });
+ },[search]);
+
     const changeHandler = event => {
+        event.preventDefault()
         setSearch({ name: event.target.value })
     };
 
@@ -30,25 +35,21 @@ export default function SearchForm(props) {
 
 
        return (
-           <Container>
-                <Row>
-                   <Col xs='auto'>
-                       <form onSubmit={submitHandler}>
-                           <label htmlFor='search'></label><br></br>
-                             <input 
-                               type='text'
-                               name='search'
-                               placeholder='Search'
-                               value={search}
-                               onChange={searchPlayers}
-                              />
-                             <Button type='submit' onClick={changeHandler}>Submit</Button>  
-                        </form>
-                      </Col>                  
-                    </Row>   
-            </Container>
-        );
-    };
+           <div className='searchForm'>
+              <form onSubmit={searchPlayers}>
+                  <label htmlFor='search'></label><br></br>
+                      <input 
+                           type='text'
+                            name='search'
+                            placeholder='Search'
+                            value={search}
+                            onChange={changeHandler}
+                         />
+                      <Button type='submit' onClick={submitHandler}>Submit</Button>  
+                  </form>
+             </div> 
+           );
+        };
 
        
                 
