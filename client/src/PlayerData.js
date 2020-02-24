@@ -1,15 +1,18 @@
 import React from 'react';
 import axios from 'axios';
+// import PlayerCard from './PlayerCard';
+
+
 
 class PlayerData extends React.Component {
     constructor(props) {
         super(props);
          this.state = {
-            players: [] 
-        }
+            players: []            
+        };
     }
 
-   componentDidMount() {
+    componentDidMount() {
         axios.get('http://localhost:5000/api/players')
          .then(res => {
              console.log(res.data);
@@ -20,7 +23,6 @@ class PlayerData extends React.Component {
         .catch(err => console.log(err));
     };
 
-  
 render() {
     return (
         <div className='playerData'>
@@ -36,4 +38,14 @@ render() {
    };
 };
 
-export default PlayerData;
+export default PlayerData;  
+            
+          
+
+      
+                                  
+              
+
+
+
+ 

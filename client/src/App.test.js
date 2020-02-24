@@ -1,23 +1,27 @@
 import React from 'react';
+import { render, fireEvent } from "@testing-library/react";
 import ReactDOM from 'react-dom';
 import App from './App';
-import * as rtl from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import SearchForm from './SearchForm';
 
-afterEach(rtl.cleanup);
+
+
 
 test('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<App />)
 });
 
 test('Players are listed', () => {
-  const players = rtl.render(<App />);
+  const players = render(<App />);
   expect(players).getByText(/players/i);
 });
 
-test('Search Form working', () => {
-  const { getByTestId } = rtl.render(<App />);
-  getByTestId(/searchForm/i);
+describe('Search Form accepts input', () => {
+  it('accepts input', () => {
+    const component = render(<SearchForm />)
+    const search = component.getByRole('search')
+    const button = component.getByText('submit')
+    expect(search).fireEvent.click(button)
+  })
 });
+

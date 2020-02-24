@@ -4,32 +4,43 @@ import axios from 'axios';
 import localStorage from './localStorage';
 
 
-// class SearchForm extends React.Component {
+
+// export default class SearchForm extends React.Component {
 //     constructor(props) {
 //         super(props);
 //           this.state = {
-//               name: ''
-//          };const  searchPlayers = 
-//     }
+//               search: ''
+//           };
 
 export default function SearchForm(props) {
     const [search, setSearch] = localStorage('');
 
    
-   useEffect(() => {
+//    useEffect(() => {
+//     axios.get('http://localhost:5000/api/players')
+//     .then(res => {
+//       res.data.filter(players => players.name.toLowerCase().includes());     
+//       setSearch(search);
+//  });
+//  },[search]);
+
+const submitHandler = event => {
+
     axios.get('http://localhost:5000/api/players')
-    .then(res => {
-      res.data.filter(players => players.name.toLowerCase().includes());     
-      setSearch(search);
- });
- },[search]);
+        .then(res => {
+          res.data.filter(players => players.name.toLowerCase().includes());     
+          setSearch({ search: event.target.value});
+     });
+    }  
+    
+
+
+    // const submitHandler = event => {
+    //     event.preventDefault()
+    //     setSearch({ name: event.target.value })
+    // };
 
     const changeHandler = event => {
-        event.preventDefault()
-        setSearch({ name: event.target.value })
-    };
-
-    const submitHandler = event => {
         event.preventDefault();
         setSearch({ name: '' });
     }
@@ -37,22 +48,21 @@ export default function SearchForm(props) {
 
        return (
            <div className='searchForm'>
-              <form onSubmit={search}>
+              <form onSubmit={submitHandler}>
                   <label htmlFor='search'></label><br></br>
                       <input 
                            type='text'
                             name='search'
                             placeholder='Search'
-                            value={search}
+                            value={props.search}
                             onChange={changeHandler}
                          />
-                      <Button type='submit' onClick={submitHandler}>Submit</Button>  
+                      <Button type='submit'>Submit</Button>  
                   </form>
              </div> 
            );
         };
 
-       
                 
 
 
