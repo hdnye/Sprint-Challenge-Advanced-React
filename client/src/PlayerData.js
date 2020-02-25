@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 // import PlayerCard from './PlayerCard';
 
@@ -12,7 +12,7 @@ class PlayerData extends React.Component {
         };
     }
 
-    componentDidMount() {
+    componentDidMount() {      
         axios.get('http://localhost:5000/api/players')
          .then(res => {
              console.log(res.data);
@@ -21,7 +21,9 @@ class PlayerData extends React.Component {
              });
          })
         .catch(err => console.log(err));
-    };
+   };
+
+
 
 render() {
     return (
